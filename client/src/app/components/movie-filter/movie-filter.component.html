@@ -1,0 +1,36 @@
+<form #filterFormRef="ngForm">
+  <div class="form-group mt-3">
+    <label for="movieDirectorFilter">Režie:</label>
+    <select [(ngModel)]="movieFilter.directorID" id="movieDirectorFilter" class="browser-default custom-select" name="director">
+      <option *ngFor="let director of directors" [value]="director._id">{{director.name}}</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="movieActorFilter">Hraje:</label>
+    <select [(ngModel)]="movieFilter.actorID" name="actor" id="movieActorFilter" class="browser-default custom-select">
+      <option *ngFor="let actor of actors" [value]="actor._id">{{actor.name}}</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="movieGenreFilter">Žánr:</label>
+    <select [(ngModel)]="movieFilter.genre" name="genre" id="movieGenreFilter" class="browser-default custom-select">
+      <option *ngFor="let genre of genres">{{genre}}</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="movieStartYearFilter">Od roku:</label>
+    <input [(ngModel)]="movieFilter.fromYear" name="fromYear" type="number" class="form-control" id="movieStartYearFilter"
+           placeholder="Zadejte rok">
+  </div>
+  <div class="form-group">
+    <label for="movieEndYearFilter">Do roku:</label>
+    <input [(ngModel)]="movieFilter.toYear" name="toYear" type="number" class="form-control" id="movieEndYearFilter"
+           placeholder="Zadejte rok">
+  </div>
+  <div class="form-group">
+    <label for="movieLimit">Max. počet výsledků:</label>
+    <input [(ngModel)]="movieFilter.limit" name="limit" type="number" minlength="1" required class="form-control" id="movieLimit"
+           placeholder="Zadejte limit">
+  </div>
+  <button [disabled]="!filterFormRef.valid" type="button" class="btn btn-secondary" (click)="onFilter.emit()">Filtrovat</button>
+</form>

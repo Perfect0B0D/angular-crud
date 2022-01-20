@@ -1,0 +1,15 @@
+<form #filterFormRef=ngForm>
+  <div class="form-group mt-3">
+    <label for="personFilter">Role:</label>
+    <select [(ngModel)]="actorFilter.role" id="personFilter" required class="browser-default custom-select"
+            name="role">
+      <option *ngFor="let role of roles" [value]="role.key">{{role.value}}</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="personLimit">Max. počet výsledků:</label>
+    <input [(ngModel)]="actorFilter.limit" type="number" minlength="1" class="form-control" id="personLimit"
+           placeholder="Zadejte limit" required name="limit" value="10">
+  </div>
+  <button type="submit" class="btn btn-secondary" [disabled]="!filterFormRef.form.valid" (click)="onFilter.emit()">Filtrovat</button>
+</form>

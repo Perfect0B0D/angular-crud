@@ -1,0 +1,54 @@
+<form *ngIf="actor !== null" #formRef="ngForm">
+  <div class="form-group">
+    <label for="name">Jméno:</label>
+    <input minlength="3" required [(ngModel)]="actor.name"
+           type="text" class="form-control" id="name"
+           placeholder="Zadejte celé jméno"
+           #name="ngModel" name="name"/>
+    <small *ngIf="name.touched && name.invalid" class="text-danger">
+      Jméno musí obshovat alespoň 3 znaky.
+    </small>
+  </div>
+  <div class="form-group">
+    <label for="birthdate">Datum narození:</label>
+    <input required (ngModelChange)="actor.birthDate = $event" [ngModel]="actor.birthDate | date: 'yyyy-MM-dd'"
+           type="date" class="form-control" id="birthdate"
+           placeholder="Zadejte datum narození" #birthDate="ngModel"
+           name="birthDate"/>
+    <small *ngIf="birthDate.touched && birthDate.invalid" class="text-danger">
+      Datum musí být větší něž '1900-01-01'.
+    </small>
+  </div>
+  <div class="form-group">
+    <label for="country">Země původu:</label>
+    <input minlength="2" required [(ngModel)]="actor.country"
+           type="text" class="form-control" id="country"
+           placeholder="Zadejte zemi původu" #country="ngModel"
+           name="country"/>
+    <small *ngIf="country.touched && country.invalid" class="text-danger">
+      Země původu musí obsahovat alespoň 2 znaky.
+    </small>
+  </div>
+  <div class="form-group">
+    <label for="biography">Biografie:</label>
+    <textarea minlength="10" required [(ngModel)]="actor.biography"
+              class="form-control" rows="5" id="biography"
+              placeholder="Napište biografi"
+              #biography="ngModel" name="biography"></textarea>
+    <small *ngIf="biography.touched && biography.invalid" class="text-danger">
+      Biografie musí obsahovat alespoň 10 znaky.
+    </small>
+  </div>
+  <div class="form-group">
+    <label>Role:</label>
+    <div>
+      <div *ngFor="let role of roles" class="form-check-inline">
+        <label class="form-check-label">
+          <input [value]="role.key" (change)="actor.role = role.key" required
+                 [checked]="actor.role === role.key"
+                 type="radio" class="form-check-input" name="role">{{role.value}}
+        </label>
+      </div>
+    </div>
+  </div>
+</form>

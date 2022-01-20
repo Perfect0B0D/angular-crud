@@ -1,0 +1,50 @@
+<form *ngIf="movie !== null" #formRef="ngForm">
+  <div class="form-group">
+    <label for="title">Název:</label>
+    <input #name="ngModel" type="text" [(ngModel)]="movie.name" minlength="3" required name="name" class="form-control" id="title" placeholder="Zadejte název díla">
+    <small *ngIf="formRef.touched && name.invalid" class="text-danger">
+      Název musí obsahovat alespoň 3 znaky.
+    </small>
+  </div>
+  <div class="form-group">
+    <label for="year">Rok vydání:</label>
+    <input #year="ngModel" type="number" [(ngModel)]="movie.year"
+           required class="form-control" id="year"
+           placeholder="Zadejte rok vydání" name="year">
+    <small *ngIf="formRef.touched && year.invalid" class="text-danger">
+      Pole nesmí být prázdné.
+    </small>
+  </div>
+  <div class="form-group">
+    <label for="director">Režie:</label>
+    <select #directorSelect="ngModel" [(ngModel)]="movie.directorID" id="director" class="browser-default custom-select" name="director" required>
+      <option *ngFor="let director of directors" [value]="director._id" [selected]="movie.directorID === director._id">{{director.name}}</option>
+    </select>
+    <small *ngIf="formRef.touched && directorSelect.invalid" class="text-danger">
+      Pole nesmí být prázdné.
+    </small>
+  </div>
+  <div class="form-group">
+    <label for="actors">Hrají:</label>
+    <select #actorsSelect="ngModel" [(ngModel)]="movie.actorIDs" id="actors" class="custom-select" multiple name="actors" required>
+      <option *ngFor="let actor of actors" [value]="actor._id">{{actor.name}}</option>
+    </select>
+    <small *ngIf="formRef.touched && actorsSelect.invalid" class="text-danger">
+      Pole nesmí být prázdné.
+    </small>
+  </div>
+  <div class="form-group">
+    <label for="genres">Žánr:</label>
+    <select #genresSelect="ngModel" [(ngModel)]="movie.genres" id="genres" class="custom-select" multiple name="genres" required>
+      <option *ngFor="let genre of genres">{{genre}}</option>
+    </select>
+    <small *ngIf="formRef.touched && genresSelect.invalid" class="text-danger">
+      Pole nesmí být prázdné.
+    </small>
+  </div>
+  <div class="form-group form-check">
+    <label class="form-check-label">
+      <input [(ngModel)]="movie.isAvailable" class="form-check-input" type="checkbox" name="is_available"> Dostupný
+    </label>
+  </div>
+</form>

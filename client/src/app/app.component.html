@@ -1,0 +1,44 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+      <ul class="nav nav-tabs ml-3">
+        <li class="nav-item"><a class="nav-link" routerLinkActive="active" routerLink="/movies-list">Filmy</a>
+        </li>
+        <li class="nav-item"><a class="nav-link" routerLinkActive="active" routerLink="/actors-list">Osobnosti</a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="col-sm">
+      <div class="btn-group float-right mr-3 mt-1">
+        <button type="button" class="btn btn-success btn-sm" (click)="isMovieModalClosed = false;">
+          Přidat film
+        </button>
+        <button type="button" class="btn btn-success btn-sm" (click)="isActorModalClosed = false">
+          Přidat osobnost
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="tab-content">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-modal header="Přidat osobu" [isClosed]="isActorModalClosed" (crossClicked)="isActorModalClosed = true">
+  <app-actor-modify></app-actor-modify>
+
+  <button footer type="button" class="btn btn-primary" (click)="addActor()">Uložit</button>
+  <button footer type="button" class="btn btn-secondary" (click)="isActorModalClosed = true">Zavřít</button>
+</app-modal>
+
+<app-modal header="Přidat film" [isClosed]="isMovieModalClosed" (crossClicked)="isMovieModalClosed = true">
+  <app-movie-modify></app-movie-modify>
+
+  <button footer type="button" class="btn btn-primary" (click)="addMovie()">Uložit</button>
+  <button footer type="button" class="btn btn-secondary" (click)="isMovieModalClosed = true">Zavřít</button>
+</app-modal>
